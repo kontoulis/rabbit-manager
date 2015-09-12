@@ -1,0 +1,33 @@
+{
+    "name": "kontoulis/rabbit-manager",
+    "description": "Standalone RabbitMQ Command line Manager",
+    "license": "GPL",
+    "keywords": ["rabbitmq"],
+    "authors": [
+        {
+            "name": "Kontoulis Dimitris",
+            "email": "kontoulisdhm@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/KontoulisDimitrios/rabbitmq-manager"
+        }
+    ],
+    "require": {
+        "videlalvaro/php-amqplib": "2.5.*",
+        "monolog/monolog": "1.*",
+        "symfony/console": "^2.7",
+        "swiftmailer/swiftmailer": "@stable",
+        "google/apiclient": "1.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "RabbitManager\\": "src"
+        }
+    }
+}
