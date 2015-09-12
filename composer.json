@@ -1,7 +1,7 @@
 {
     "name": "kontoulis/rabbit-manager",
     "description": "Standalone RabbitMQ Command line Manager",
-    "license": "GPL",
+    "license": "GNU2",
     "keywords": ["rabbitmq"],
     "authors": [
         {
