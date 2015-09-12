@@ -1,6 +1,6 @@
-# RabbitMQ Manager (Standalone)
+# Rabbit Manager (Standalone)
 
-RabbitMQ Manager is a standalone php package to easily manage RabbitMQ
+Rabbit Manager is a standalone php package to easily manage RabbitMQ
 
   - Built-in command line tools. Simple commands to add/receive messages to/from RabbitMQ
   - Install as Standalone, or add it to your own project
@@ -8,7 +8,7 @@ RabbitMQ Manager is a standalone php package to easily manage RabbitMQ
 
 ## Install with composer
 ```bash
-$ composer require asmodai/RabbitManager
+$ composer require kontouis/rabbit-manager
 ```
 ## Or use it as standalone
 Add bin/rabbit-manager to /usr/local/bin
