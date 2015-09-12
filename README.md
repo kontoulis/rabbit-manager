@@ -11,6 +11,11 @@ Rabbit Manager is a standalone php package to easily manage RabbitMQ
 $ composer require kontouis/rabbit-manager
 ```
 ## Or use it as standalone
+```bash
+$ git clone https://github.com/kontoulis/rabbit-manager
+$ cd rabbit-manager
+$ sudo composer update
+```
 Add bin/rabbit-manager to /usr/local/bin
 
 ```bash
