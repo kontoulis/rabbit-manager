@@ -21,7 +21,7 @@ class QueueListenCommand extends Command
 
 	{
 
-		$this->setName('queue:listenWorker')
+		$this->setName('queue:listen')
 			->setDescription("Listens to the specified Queue")
 			->addArgument("queueName",
 				InputArgument::REQUIRED,

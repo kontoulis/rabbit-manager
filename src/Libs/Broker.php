@@ -46,15 +46,15 @@ class Broker
 	 */
 	protected $logger;
 
-	protected $host;
+	protected static $host;
 
-	protected $port;
+	protected static $port;
 
-	protected $user;
+	protected static $user;
 
-	protected $password;
+	protected static $password;
 
-	protected $vhost;
+	protected static $vhost;
 
 	/**
 	 * @param string $host
@@ -345,7 +345,7 @@ class Broker
 
 		$ch = curl_init();
 
-		$url = "http://{$this->host}:{$this->port}/api/queues/%2F/" .
+		$url = "http://" . self::$host . ":" . self::$port . "/api/queues/%2F/" .
 
 			$queueName . '/get';
 
@@ -360,7 +360,7 @@ class Broker
 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
 
-		curl_setopt($ch, CURLOPT_USERPWD, $this->user . ":" . $this->password);
+		curl_setopt($ch, CURLOPT_USERPWD, self::$user . ":" . self::$password);
 
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 
