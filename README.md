@@ -73,7 +73,7 @@ use RabbitManager\Libs\Message;
 
 // Your Class and Methods
 
-public function publishMessage($message , $queueName = "TheNameOfTheQueue")
+public function publishMessage($message , $queueName = "Default")
 {
     $broker = new Broker(AMPQ_HOST, AMPQ_PORT, AMPQ_USER, AMPQ_PASSWORD , AMPQ_VHOST);
     /* Makes the AMPQ message */
@@ -91,13 +91,15 @@ public function publishMessage($message , $queueName = "TheNameOfTheQueue")
 ```php
 use RabbitManager\Libs\Broker;
 
-public function listenToQueue($queueName = "TheNameOfTheQueue" )
+public function listenToQueue($queueName = "Default" )
 // Listening to queue
   $broker = new Broker();
   // Here you tell the broker which handler to call in order to parse the message
   // Use a fully qualified Namespace.
   // The broker will call the tryProcessing() method of the specified Handler
-  // for every message received from the queue
+  // for every message received from the queue.
+  // The handler in the package is named DefaultHandler
+  // Make your own handlers according to your needs
   $broker->listenToQueue(
   	$queueName,
   	array(
