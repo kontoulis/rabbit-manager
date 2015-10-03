@@ -1,4 +1,10 @@
 # Rabbit Manager (Standalone)
+[![Latest Stable Version](https://poser.pugx.org/kontoulis/rabbit-manager/v/stable)](https://packagist.org/packages/kontoulis/rabbit-manager)
+[![Total Downloads](https://poser.pugx.org/kontoulis/rabbit-manager/downloads)](https://packagist.org/packages/kontoulis/rabbit-manager)
+[![Latest Unstable Version](https://poser.pugx.org/kontoulis/rabbit-manager/v/unstable)](https://packagist.org/packages/kontoulis/rabbit-manager)
+[![License](https://poser.pugx.org/kontoulis/rabbit-manager/license)](https://packagist.org/packages/kontoulis/rabbit-manager)
+
+There is also a separate [Laravel 5.1 package](https://github.com/kontoulis/rabbitmq-laravel) 
 
 Rabbit Manager is a standalone php package to easily manage RabbitMQ
 
@@ -19,12 +25,12 @@ $ sudo composer update
 Add bin/rabbit-manager to /usr/local/bin
 
 ```bash
-$ sudo ln -s /full/path/to/project/bin/rabbit-manager /usr/local/bin/rabbit-manageer
+$ sudo ln -s /full/path/to/project/bin/rabbit-manager /usr/local/bin/rabbit-manager
 ```
 Use the default commands or create your own based on those.
 
 ## Dependencies
-- A running instance of [RabbitMQ](https://www.rabbitmq.com) ofcourse 
+- A running instance of [RabbitMQ](https://www.rabbitmq.com) of course 
 
 ## Testing
 Don't forget to run the tests!
@@ -195,6 +201,6 @@ These return values will tell the broker what to do after you process a message
 ```
 
 ### Version
-1.0.0
+1.0.1
 
 Feel free to give some feedback or ask any questions
