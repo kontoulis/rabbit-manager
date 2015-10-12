@@ -1,6 +1,5 @@
 # Rabbit Manager (Standalone)
 [![Latest Stable Version](https://poser.pugx.org/kontoulis/rabbit-manager/v/stable)](https://packagist.org/packages/kontoulis/rabbit-manager)
-[![Total Downloads](https://poser.pugx.org/kontoulis/rabbit-manager/downloads)](https://packagist.org/packages/kontoulis/rabbit-manager)
 [![Latest Unstable Version](https://poser.pugx.org/kontoulis/rabbit-manager/v/unstable)](https://packagist.org/packages/kontoulis/rabbit-manager)
 [![License](https://poser.pugx.org/kontoulis/rabbit-manager/license)](https://packagist.org/packages/kontoulis/rabbit-manager)
 
