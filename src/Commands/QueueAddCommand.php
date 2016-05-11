@@ -57,7 +57,7 @@ class QueueAddCommand extends Command
 
 
 		$broker = new Broker();
-		/* Makes the AMPQ message */
+		/* Makes the AMQP message */
 		$msg = new Message($queueName, ["message" => $message]);
 
 		/* Sends the message */

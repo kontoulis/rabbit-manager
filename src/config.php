@@ -8,9 +8,9 @@
 // Enables Error Reporting
 define('DEBUG_MODE', false);
 
-// AMPQ Connection settigns for RabbitMQ
-define('AMPQ_HOST', 'localhost');
-define('AMPQ_PORT', 5672);
-define('AMPQ_USER', 'guest');
-define('AMPQ_PASS', 'guest');
-define('AMPQ_VHOST', '/');
+// AMQP Connection settigns for RabbitMQ
+define('AMQP_HOST', 'localhost');
+define('AMQP_PORT', 5672);
+define('AMQP_USER', 'guest');
+define('AMQP_PASS', 'guest');
+define('AMQP_VHOST', '/');

@@ -64,27 +64,28 @@ class Broker
     protected $logger;
 
     /**
-     * @param string $host
-     * @param int $port
-     * @param string $user
-     * @param string $password
-     * @param string $vhost
+     * @param array $config
      * @throws \Exception
+     * @internal param string $host
+     * @internal param int $port
+     * @internal param string $user
+     * @internal param string $password
+     * @internal param string $vhost
      */
-    function __construct($host = AMPQ_HOST, $port = AMPQ_PORT, $user = AMPQ_USER, $password = AMPQ_PASS, $vhost = AMPQ_VHOST)
+    function __construct($config = [])
     {
-        $this->host = $host;
-        $this->$port = $port;
-        $this->user = $user;
-        $this->password = $password;
-        $this->vhost = $vhost;
+        $this->host = (isset($config['host']) ? $config['host'] : (defined('AMQP_HOST') ? AMQP_HOST : 'localhost'));
+        $this->port = (isset($config['port']) ? $config['port'] : (defined('AMQP_PORT') ? AMQP_PORT : 5672));
+        $this->user = (isset($config['user']) ? $config['user'] : (defined('AMQP_USER') ? AMQP_USER : 'guest'));
+        $this->password = (isset($config['password']) ? $config['password'] : (defined('AMQP_PASS') ? AMQP_PASS : 'guest'));
+        $this->vhost = (isset($config['vhost']) ? $config['vhost'] : (defined('AMQP_vhost') ? AMQP_PASS : '/'));
 
         $this->logger = new Logger();
         try {
 
             /* Open RabbitMQ connection */
 
-            $this->connection = new AMQPStreamConnection($host, $port, $user, $password, $vhost);
+            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
 
             $this->channel = $this->connection->channel();
 
