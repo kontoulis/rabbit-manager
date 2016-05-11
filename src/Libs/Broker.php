@@ -132,7 +132,7 @@ class Broker
         if (!is_null($queueName)) {
             $this->queueName = $queueName;
         }
-        $channel = $this->connection->channel();
+//        $channel = $this->connection->channel();
         /* Look for handlers */
 //        if($this->multichannel){
 //            $channel = $this->connection->channel($channelId);
@@ -198,14 +198,14 @@ class Broker
 
         /* Create queue */
 
-        $channel->queue_declare($this->queueName, false, true, false, false);
+        $this->channel->queue_declare($this->queueName, false, true, false, false);
 
 
         /* Start consuming */
 
-        $channel->basic_qos(null, 1, null);
+        $this->channel->basic_qos(null, 1, null);
 
-        $channel->basic_consume(
+        $this->channel->basic_consume(
 
             $this->queueName, '', false, false, false, false, function ($amqpMsg) use ($handlersMap) {
 
@@ -220,8 +220,8 @@ class Broker
 
         /* Iterate until ctrl+c is received... */
 
-        while (count($channel->callbacks)) {
-            $channel->wait(null, null, 1);
+        while (count($this->channel->callbacks)) {
+            $this->channel->wait(null, null, 1);
         }
 
     }
