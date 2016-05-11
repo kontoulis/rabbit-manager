@@ -7,10 +7,7 @@
  */
 namespace RabbitManager\Libs;
 
-use PhpAmqpLib\Connection\AMQPConnection;
-use PhpAmqpLib\Connection\AMQPLazyConnection;
-use PhpAmqpLib\Connection\AMQPLazySocketConnection;
-use PhpAmqpLib\Connection\AMQPSocketConnection;
+
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
 use RabbitManager\Exception\BrokerException;
