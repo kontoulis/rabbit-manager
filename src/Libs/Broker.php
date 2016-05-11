@@ -93,7 +93,7 @@ class Broker
 
             /* Open RabbitMQ connection */
 
-            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
+            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost,true);
 
             $this->channel = $this->connection->channel(0);
 
