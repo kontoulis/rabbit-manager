@@ -132,12 +132,13 @@ class Broker
         if (!is_null($queueName)) {
             $this->queueName = $queueName;
         }
+        $channel = $this->channel;
         /* Look for handlers */
-        if($this->multichannel){
-            $channel = $this->connection->channel($channelId);
-        }else{
-            $channel = $this->channel;
-        }
+//        if($this->multichannel){
+//            $channel = $this->connection->channel($channelId);
+//        }else{
+//            $channel = $this->channel;
+//        }
         $handlersMap = array();
         if (is_array($handlers)) {
             foreach ($handlers as $handlerClassPath) {
