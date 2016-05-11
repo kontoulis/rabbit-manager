@@ -95,7 +95,7 @@ class Broker
 
             $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost,true);
 
-            $this->channel = $this->connection->channel(0);
+            $this->channel = $this->connection->channel($this->connection->getChannelId());
 
 
         } catch (AMQPRuntimeException $ex) {
