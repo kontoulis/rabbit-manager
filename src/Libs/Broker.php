@@ -8,6 +8,7 @@
 namespace RabbitManager\Libs;
 
 use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Connection\AMQPSocketConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
 use RabbitManager\Exception\BrokerException;
@@ -64,7 +65,7 @@ class Broker
      */
     protected $logger;
 
-    public $timeout = 1;
+    public $timeout = 30;
 
     /**
      * @param array $config
@@ -90,7 +91,7 @@ class Broker
 
             /* Open RabbitMQ connection */
 
-            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
+            $this->connection = new AMQPSocketConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
 
             $this->channel = $this->connection->channel();
 
