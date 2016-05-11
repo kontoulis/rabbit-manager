@@ -64,6 +64,8 @@ class Broker
      */
     protected $logger;
 
+    public $timeout = 1;
+
     /**
      * @param array $config
      * @param bool $multichannel
@@ -91,6 +93,7 @@ class Broker
             $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
 
             $this->channel = $this->connection->channel();
+
 
         } catch (AMQPRuntimeException $ex) {
 
@@ -221,7 +224,7 @@ class Broker
         /* Iterate until ctrl+c is received... */
 
         while (count($this->channel->callbacks)) {
-            $this->channel->wait(null, null, 1);
+            $this->channel->wait(null, null, $this->timeout);
         }
 
     }
