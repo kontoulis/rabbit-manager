@@ -122,18 +122,19 @@ class Broker
      * Starts to listen a queue for incoming messages.
      * @param array $handlers Array of handler class instances
      * @param string $queueName The AMQP queue
-     * @param bool $destroyOnEmpty
+     * @param null $channelId
      * @return bool
+     * @internal param bool $destroyOnEmpty
      */
 
-    public function listenToQueue($handlers = [], $queueName = null, $destroyOnEmpty = false)
+    public function listenToQueue($handlers = [], $queueName = null, $channelId = null)
     {
         if (!is_null($queueName)) {
             $this->queueName = $queueName;
         }
         /* Look for handlers */
         if($this->multichannel){
-            $channel = $this->connection->channel();
+            $channel = $this->connection->channel($channelId);
         }else{
             $channel = $this->channel;
         }
