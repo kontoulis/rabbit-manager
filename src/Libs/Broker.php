@@ -132,7 +132,7 @@ class Broker
         if (!is_null($queueName)) {
             $this->queueName = $queueName;
         }
-        $channel = $this->channel;
+        $channel = $this->connection->channel();
         /* Look for handlers */
 //        if($this->multichannel){
 //            $channel = $this->connection->channel($channelId);
