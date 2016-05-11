@@ -65,6 +65,7 @@ class Broker
 
     /**
      * @param array $config
+     * @param bool $multichannel
      * @throws \Exception
      * @internal param string $host
      * @internal param int $port
@@ -72,8 +73,9 @@ class Broker
      * @internal param string $password
      * @internal param string $vhost
      */
-    function __construct($config = [])
+    function __construct($config = [], $multichannel = false)
     {
+        $this->multichannel = $multichannel;
         $this->host = (isset($config['host']) ? $config['host'] : (defined('AMQP_HOST') ? AMQP_HOST : 'localhost'));
         $this->port = (isset($config['port']) ? $config['port'] : (defined('AMQP_PORT') ? AMQP_PORT : 5672));
         $this->user = (isset($config['user']) ? $config['user'] : (defined('AMQP_USER') ? AMQP_USER : 'guest'));
@@ -129,7 +131,11 @@ class Broker
             $this->queueName = $queueName;
         }
         /* Look for handlers */
-
+        if($this->multichannel){
+            $channel = $this->connection->channel();
+        }else{
+            $channel = $this->channel;
+        }
         $handlersMap = array();
         if (is_array($handlers)) {
             foreach ($handlers as $handlerClassPath) {
@@ -189,14 +195,14 @@ class Broker
 
         /* Create queue */
 
-        $this->channel->queue_declare($this->queueName, false, true, false, false);
+        $channel->queue_declare($this->queueName, false, true, false, false);
 
 
         /* Start consuming */
 
-        $this->channel->basic_qos(null, 1, null);
+        $channel->basic_qos(null, 1, null);
 
-        $this->channel->basic_consume(
+        $channel->basic_consume(
 
             $this->queueName, '', false, false, false, false, function ($amqpMsg) use ($handlersMap) {
 
@@ -211,8 +217,8 @@ class Broker
 
         /* Iterate until ctrl+c is received... */
 
-        while (count($this->channel->callbacks)) {
-            $this->channel->wait(null, null, 1);
+        while (count($channel->callbacks)) {
+            $channel->wait(null, null, 1);
         }
 
     }
