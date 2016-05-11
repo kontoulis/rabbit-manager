@@ -93,7 +93,7 @@ class Broker
 
             /* Open RabbitMQ connection */
 
-            $this->connection = new AMQPLazySocketConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
+            $this->connection = new AMQPLazyConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
 
             $this->channel = $this->connection->channel();
 
