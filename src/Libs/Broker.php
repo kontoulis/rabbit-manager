@@ -7,6 +7,7 @@
  */
 namespace RabbitManager\Libs;
 
+use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
 use RabbitManager\Exception\BrokerException;
@@ -87,7 +88,7 @@ class Broker
 
             /* Open RabbitMQ connection */
 
-            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
+            $this->connection = new AMQPConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
 
             $this->channel = $this->connection->channel();
 
