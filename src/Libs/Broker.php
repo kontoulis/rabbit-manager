@@ -65,7 +65,7 @@ class Broker
      */
     protected $logger;
 
-    public $timeout = 30;
+    public $timeout = 10;
 
     /**
      * @param array $config
