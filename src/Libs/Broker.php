@@ -11,6 +11,7 @@ namespace RabbitManager\Libs;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
 use RabbitManager\Exception\BrokerException;
+use RabbitManager\Traits\SingletonTrait;
 
 /**
  * Class Broker
@@ -18,7 +19,7 @@ use RabbitManager\Exception\BrokerException;
  */
 class Broker
 {
-
+    use SingletonTrait;
     /**
      * @var string
      */
@@ -90,7 +91,10 @@ class Broker
 
             /* Open RabbitMQ connection */
 
-            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
+            if(!isset($GLOBALS['AMQP_CONNECTION'])){
+                $GLOBALS['AMQP_CONNECTION'] = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
+            }
+            $this->connection = $GLOBALS['AMQP_CONNECTION'];
 
             $this->channel = $this->connection->channel();
 
