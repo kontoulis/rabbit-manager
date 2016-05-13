@@ -164,7 +164,7 @@ class Broker
 
                 }
 
-                $handlerOb = new $handlerClassPath();
+                $handlerOb = new $handlerClassPath($this);
 
                 $classPathParts = explode("\\", $handlerClassPath);
 
