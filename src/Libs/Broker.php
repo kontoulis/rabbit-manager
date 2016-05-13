@@ -86,7 +86,7 @@ class Broker
         $this->password = (isset($config['password']) ? $config['password'] : (defined('AMQP_PASS') ? AMQP_PASS : 'guest'));
         $this->vhost = (isset($config['vhost']) ? $config['vhost'] : (defined('AMQP_vhost') ? AMQP_PASS : '/'));
 
-        $this->logger = new Logger();
+//        $this->logger = new Logger();
         try {
 
             /* Open RabbitMQ connection */
@@ -105,13 +105,13 @@ class Broker
 
             /* Something went wrong apparently... */
 
-            $this->logger->addError(
-
-                'Fatal error while initializing AMQP connection: '
-
-                . $ex->getMessage()
-
-            );
+//            $this->logger->addError(
+//
+//                'Fatal error while initializing AMQP connection: '
+//
+//                . $ex->getMessage()
+//
+//            );
 
             throw new \Exception(
 

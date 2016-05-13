@@ -74,16 +74,18 @@ abstract class Handler
 	protected $loggerName = 'Messaging/Handler';
 
 	/**
-	 *
+	 * @param null $broker
 	 */
-	public function __construct()
+	public function __construct($broker = null)
 
 	{
 
-		$this->logger = new Logger($this->loggerName);
+//		$this->logger = new Logger($this->loggerName);
 
-
-		$this->messagingBroker = new Broker();
+		if(is_null($broker)){
+			$broker = Broker::instance();
+		}
+		$this->messagingBroker = $broker;
 
 	}
 
