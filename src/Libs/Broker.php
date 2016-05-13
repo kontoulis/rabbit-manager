@@ -95,8 +95,10 @@ class Broker
                 $GLOBALS['AMQP_CONNECTION'] = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
             }
             $this->connection = $GLOBALS['AMQP_CONNECTION'];
-
-            $this->channel = $this->connection->channel();
+            if(!isset($GLOBALS['AMQP_MAIN_CHANNEL'])){
+                $GLOBALS['AMQP_MAIN_CHANNEL'] = $this->connection->channel();
+            }
+            $this->channel = $GLOBALS['AMQP_MAIN_CHANNEL'];
 
 
         } catch (AMQPRuntimeException $ex) {
@@ -191,7 +193,7 @@ class Broker
 
             }
 
-            $handlerOb = new $handlerClassPath();
+            $handlerOb = new $handlerClassPath($this);
 
             $classPathParts = explode("\\", $handlerClassPath);
 
