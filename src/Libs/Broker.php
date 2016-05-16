@@ -77,7 +77,7 @@ class Broker
      * @internal param string $password
      * @internal param string $vhost
      */
-    public function __construct($config = [], $multichannel = false, $channelId = null)
+    function __construct($config = [], $multichannel = false)
     {
         $this->multichannel = $multichannel;
         $this->host = (isset($config['host']) ? $config['host'] : (defined('AMQP_HOST') ? AMQP_HOST : 'localhost'));
@@ -86,7 +86,7 @@ class Broker
         $this->password = (isset($config['password']) ? $config['password'] : (defined('AMQP_PASS') ? AMQP_PASS : 'guest'));
         $this->vhost = (isset($config['vhost']) ? $config['vhost'] : (defined('AMQP_vhost') ? AMQP_PASS : '/'));
 
-        $this->logger = new Logger();
+//        $this->logger = new Logger();
         try {
 
             /* Open RabbitMQ connection */
@@ -95,22 +95,23 @@ class Broker
                 $GLOBALS['AMQP_CONNECTION'] = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
             }
             $this->connection = $GLOBALS['AMQP_CONNECTION'];
-//            $this->connection = new AMQPStreamConnection($this->host, $this->port, $this->user, $this->password, $this->vhost);
-
-            $this->channel = $this->connection->channel($channelId);
+            if(!isset($GLOBALS['AMQP_MAIN_CHANNEL'])){
+                $GLOBALS['AMQP_MAIN_CHANNEL'] = $this->connection->channel();
+            }
+            $this->channel = $GLOBALS['AMQP_MAIN_CHANNEL'];
 
 
         } catch (AMQPRuntimeException $ex) {
 
             /* Something went wrong apparently... */
 
-            $this->logger->addError(
-
-                'Fatal error while initializing AMQP connection: '
-
-                . $ex->getMessage()
-
-            );
+//            $this->logger->addError(
+//
+//                'Fatal error while initializing AMQP connection: '
+//
+//                . $ex->getMessage()
+//
+//            );
 
             throw new \Exception(
 
@@ -140,14 +141,13 @@ class Broker
         if (!is_null($queueName)) {
             $this->queueName = $queueName;
         }
-
+//        $channel = $this->connection->channel();
         /* Look for handlers */
-        if(!is_null($channelId)){
-            $channel = $this->connection->channel($channelId);
-        }else{
-            $channel = $this->channel;
-        }
-        $channel = $this->channel;
+//        if($this->multichannel){
+//            $channel = $this->connection->channel($channelId);
+//        }else{
+//            $channel = $this->channel;
+//        }
         $handlersMap = array();
         if (is_array($handlers)) {
             foreach ($handlers as $handlerClassPath) {
@@ -207,14 +207,14 @@ class Broker
 
         /* Create queue */
 
-        $channel->queue_declare($this->queueName, false, true, false, false);
+        $this->channel->queue_declare($this->queueName, false, true, false, false);
 
 
         /* Start consuming */
 
-        $channel->basic_qos(null, 1, null);
+        $this->channel->basic_qos(null, 1, null);
 
-        $channel->basic_consume(
+        $this->channel->basic_consume(
 
             $this->queueName, '', false, false, false, false, function ($amqpMsg) use ($handlersMap) {
 
@@ -229,8 +229,8 @@ class Broker
 
         /* Iterate until ctrl+c is received... */
 
-        while (count($channel->callbacks)) {
-            $channel->wait(null, null, $this->timeout);
+        while (count($this->channel->callbacks)) {
+            $this->channel->wait(null, null, $this->timeout);
         }
 
     }
