@@ -66,6 +66,7 @@ class Broker
     protected $logger;
 
     public $timeout = 10;
+    public $prefetchCount = 1;
 
     /**
      * @param array $config
@@ -212,7 +213,7 @@ class Broker
 
         /* Start consuming */
 
-        $this->channel->basic_qos(null, 1, null);
+        $this->channel->basic_qos(null, $this->prefetchCount, null);
 
         $this->channel->basic_consume(
 
