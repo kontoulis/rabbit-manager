@@ -12,6 +12,10 @@ namespace RabbitManager\Libs;
  * Class Handler
  * @package RabbitManager\Libs
  */
+/**
+ * Class Handler
+ * @package RabbitManager\Libs
+ */
 abstract class Handler
 
 {
@@ -74,6 +78,11 @@ abstract class Handler
 	protected $loggerName = 'Messaging/Handler';
 
 	/**
+	 * @var null
+     */
+	protected $messagingBroker;
+
+	/**
 	 * @param null $broker
 	 */
 	public function __construct($broker = null)
@@ -104,6 +113,10 @@ abstract class Handler
 
 	abstract public function tryProcessing(Message $msg);
 
+	/**
+	 * @param $msg
+	 * @return mixed
+     */
 	abstract protected function handleSuccess($msg);
 }
 
