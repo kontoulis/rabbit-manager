@@ -549,6 +549,7 @@ class Broker
      */
     protected function handleFailedContinue(Message $msg)
     {
+        $msg->sendNack();
         return true;
     }
 
